@@ -23,4 +23,8 @@ public class Role {
 	private Integer id;
 	private String name;
 	
+	@OneToMany(mappedBy = "role_id", cascade= CascadeType.ALL)
+	@JsonIgnore
+	List<ProjectAssignment> projectAssignment = null;
+	
 }

@@ -27,4 +27,8 @@ public class Project {
 	private LocalDateTime start_date;
 	private LocalDateTime end_date;
 	
+	@OneToMany(mappedBy = "project_id", cascade= CascadeType.ALL)
+	@JsonIgnore
+	List<ProjectAssignment> projectAssignment = null;
+	
 }

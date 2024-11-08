@@ -9,6 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -24,4 +27,11 @@ public class Department {
 	private String name;
 	private String chief;
 	
+	@OneToMany(mappedBy = "dep_id", cascade= CascadeType.ALL)
+	@JsonIgnore
+	List<Employee> employee = null;
+	
+	@ManyToMany(mappedBy = "departments")
+	@JsonIgnore
+	List<Employee> employees;
 }

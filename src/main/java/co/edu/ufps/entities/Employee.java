@@ -10,6 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -25,7 +29,24 @@ public class Employee {
 	private String first_n;
 	private String last_n;
 	private LocalDateTime birthdate;
+	
+	@ManyToOne
+	@JoinColumn(name="dep_id")
 	private Department dep_id;
+	
+	@ManyToOne
+	@JoinColumn(name="pos_id")
 	private Position pos_id;
 	private LocalDateTime entry_date;
+	
+	@OneToMany(mappedBy = "employee_id", cascade= CascadeType.ALL)
+	@JsonIgnore
+	List<ProjectAssignment> projectAssignment = null;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "visit",
+			  joinColumns = @JoinColumn(name = "employee_id"),
+			  inverseJoinColumns = @JoinColumn(name = "department_id"))
+   List<Department> departments;
 }
