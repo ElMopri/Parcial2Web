@@ -44,5 +44,19 @@ public class EmployeeService {
 		}
 		return null;
 	}
+			
+	public Employee removeDepartment(Integer id, Integer funcionId) {
+		Optional<Employee> employeeOpt = employeeRepository.findById(id);
+		if (employeeOpt.isPresent()) {
+			Employee employee = employeeOpt.get();
+			Optional<Department> departmentOpt = departmentRepository.findById(funcionId);
+			if (departmentOpt.isPresent()) {
+				employee.removeDepartment(departmentOpt.get());
+			}
+			return employeeRepository.save(employee);
+		}
+		return null;
+	}
 		
+
 }

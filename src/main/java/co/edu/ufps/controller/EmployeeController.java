@@ -35,9 +35,15 @@ public class EmployeeController {
 		return ResponseEntity.ok(employeeService.get(id));
 	}
 	
-		@PostMapping("/{id}/agregar_departemento/{funcionId}")
+		@PostMapping("/{id}/agregar_departemento/{departmentId}")
 	public ResponseEntity<Employee> create(@PathVariable Integer id, @PathVariable Integer departmentId) {
 			Employee newEmployee = employeeService.addDepartment(id, departmentId);
+		return ResponseEntity.ok(newEmployee);
+	}
+		
+	@DeleteMapping("/{id}/remover_departemento/{departmentId}")
+	public ResponseEntity<Employee> deleteFuncion(@PathVariable Integer id, @PathVariable Integer departmentId) {
+		Employee newEmployee = employeeService.removeDepartment(id, departmentId);
 		return ResponseEntity.ok(newEmployee);
 	}
 	
