@@ -1,6 +1,5 @@
 package co.edu.ufps.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +15,23 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	private DepartmentRepository departmentRepository;
-	
+
 	public Employee create(Employee employee) {
 		return employeeRepository.save(employee);
 	}
-	
-		public Employee get(Integer id) {
+
+	public Employee get(Integer id) {
 		Optional<Employee> SelecionOpt = employeeRepository.findById(id);
 		if (SelecionOpt.isPresent()) {
 			return SelecionOpt.get();
 		}
 		return null;
-		}
-	
-			public Employee addDepartment(Integer id, Integer departmentId) {
+	}
+
+	public Employee addDepartment(Integer id, Integer departmentId) {
 		Optional<Employee> employeeOpt = employeeRepository.findById(id);
 		if (employeeOpt.isPresent()) {
 			Employee employee = employeeOpt.get();
@@ -44,7 +43,7 @@ public class EmployeeService {
 		}
 		return null;
 	}
-			
+
 	public Employee removeDepartment(Integer id, Integer funcionId) {
 		Optional<Employee> employeeOpt = employeeRepository.findById(id);
 		if (employeeOpt.isPresent()) {
@@ -57,6 +56,5 @@ public class EmployeeService {
 		}
 		return null;
 	}
-		
 
 }

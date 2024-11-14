@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
 	@Id
@@ -29,31 +29,33 @@ public class Employee {
 	private String first_n;
 	private String last_n;
 	private LocalDateTime birthdate;
-	
+
 	@ManyToOne
-	@JoinColumn(name="dep_id")
+	@JoinColumn(name = "dep_id")
 	private Department dep_id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="pos_id")
+	@JoinColumn(name = "pos_id")
 	private Position pos_id;
+
 	private LocalDateTime entry_date;
-	
-	@OneToMany(mappedBy = "employee_id", cascade= CascadeType.ALL)
+
+	@OneToMany(mappedBy = "chief_id", cascade = CascadeType.ALL)
+	@JsonIgnore
+	List<Department> chiefs = null;
+
+	@OneToMany(mappedBy = "employee_id", cascade = CascadeType.ALL)
 	@JsonIgnore
 	List<ProjectAssignment> projectAssignment = null;
-	
+
 	@ManyToMany
-	@JoinTable(
-			  name = "visit",
-			  joinColumns = @JoinColumn(name = "employee_id"),
-			  inverseJoinColumns = @JoinColumn(name = "department_id"))
-   List<Department> departments;
-	
-		public void addDepartment(Department department) {
+	@JoinTable(name = "visit", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
+	List<Department> departments;
+
+	public void addDepartment(Department department) {
 		this.departments.add(department);
 	}
-	
+
 	public void removeDepartment(Department department) {
 		this.departments.remove(department);
 	}

@@ -29,8 +29,17 @@ public class ProjectService {
 		project.setName(projectDetails.getName());
 		project.setDescription(projectDetails.getDescription());
 		project.setStart_date(projectDetails.getStart_date());
+		project.setEnd_date(projectDetails.getEnd_date());
 
 		return ProjectRepository.save(project);
+	}
+	
+	public Project get(Integer id) {
+		Optional<Project> projectOpt = ProjectRepository.findById(id);
+		if (projectOpt.isPresent()) {
+			return projectOpt.get();
+		}
+		return null;
 	}
 	
 }
